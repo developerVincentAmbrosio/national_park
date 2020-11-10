@@ -1,0 +1,69 @@
+* {
+    box-sizing: border-box;
+}
+
+/* SECTIONS */
+
+body {
+    padding: 5px;
+}
+
+form {
+    margin: auto;
+}
+
+/* TYPOGRAPHY */
+
+h1, label, p, li, a {
+    color: #000;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    text-align: center;
+    line-height: 68px;
+}
+
+h1 {
+    font-size: 42px;
+}
+
+label, p, li, a {
+    font-size: 24px;
+    line-height: 42px;
+    text-align: left;
+    margin: auto;
+}
+
+a {
+    font-style: oblique;
+    color: blue;
+}
+
+ul {
+    margin: auto;
+    list-style: none;
+}
+
+/* IDS */
+
+#submit {
+    margin: auto;
+    text-align: center;
+}
+
+/* CLASSES */
+
+.hidden {
+    display: none;
+}
+
+.group {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    align-content: space-around;
+}
+
+.item {
+    flex: 1;
+    margin: auto;
+}
