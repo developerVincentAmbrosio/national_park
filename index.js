@@ -1,3 +1,5 @@
+'use strict';
+
 const baseUrl = "https://developer.nps.gov/api/v1/parks";
 const apiKey = "bqe6OTlEglcZAXClrTLUPwHffKkd9cn9ixqtuBkU";
 
@@ -7,32 +9,29 @@ function formatQueryParams(params) {
     return queryItems.join('&');
 }
 
-function displayResults(responseJson) {
+function displayParkNamesDescriptions(responseJson) {
+    console.log(responseJson.data);
     $('.js-results-list').empty();
     for (let i = 0; i < responseJson.data.length; i++) {
+//        for (let j = 0; j < responseJson.data.length; j++) {
+//            const parkAddress = `${responseJson.data[i].addresses[j].type} Address: ${responseJson.data[i].addresses[j].line1} ${responseJson.data[i].addresses[j].line2} ${responseJson.data[i].addresses[j].city} ${responseJson.data[i].addresses[j].stateCode} ${responseJson.data[i].addresses[j].postalCode}`;
+            
+//            console.log(parkAddress);
+//        }
         $('.js-results-list').append(`
-            <ul>
+            <ul class="item">
                 <li><h3>${responseJson.data[i].fullName}</h3></li>
                 <li><a href="${responseJson.data[i].url}">${responseJson.data[i].url}</a></li>
-                <li><p>${responseJson.data[i].description}</p></li>   
-                <li><p><b>${responseJson.data[i].addresses[0].type} Address: </b>
-                          ${responseJson.data[i].addresses[0].line1} 
-                          ${responseJson.data[i].addresses[0].line2} 
-                          ${responseJson.data[i].addresses[0].city}, ${responseJson.data[i].addresses[0].stateCode} ${responseJson.data[i].addresses[0].postalCode}</p></li>
-                <li><p><b>${responseJson.data[i].addresses[1].type} Address: </b>
-                          ${responseJson.data[i].addresses[1].line1} 
-                          ${responseJson.data[i].addresses[1].line2} 
-                          ${responseJson.data[i].addresses[1].city}, ${responseJson.data[i].addresses[1].stateCode} ${responseJson.data[i].addresses[1].postalCode}</p></li>
-            </ul>
-            <hr>`
-            )};
+                <li><p>${responseJson.data[i].description}</p></li>
+            </ul>`) //<li>${parkAddress}</li>
+        };
     $('.js-results').removeClass('hidden');
 }
 
-function getParkInfo(query, maxResults=10) {
+function getParkInfo(stateCode, maxResults=10) {
     const params = {
         api_key: apiKey,
-        q: query,
+        stateCode: stateCode.trim().split(",") ,
         limit: maxResults
     };
 
@@ -41,7 +40,7 @@ function getParkInfo(query, maxResults=10) {
 
     fetch (url)
         .then(response => response.json())
-        .then(responseJson => displayResults(responseJson));
+        .then(responseJson => displayParkNamesDescriptions(responseJson));
 }
 
 function submitFormListener() {
