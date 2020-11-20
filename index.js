@@ -5,31 +5,17 @@ const apiKey = "bqe6OTlEglcZAXClrTLUPwHffKkd9cn9ixqtuBkU";
 
 function formatQueryParams(params) {
     const queryItems = Object.keys(params)
-        //array[PA, NJ]
-        //stateCode=PA&stateCode=NJ
         .map(key => {
-            if (key === "stateCode") {
-                let multipleStates = "";
-                params[key].forEach((state,i) => {
-                    if (i < params[key].length -1) {
-                        multipleStates += `${encodeURIComponent(key)}=${encodeURIComponent(state.trim())}&`    
-                    } else {
-                        multipleStates += `${encodeURIComponent(key)}=${encodeURIComponent(state.trim())}`
-                    }
-                })
-                console.log(multipleStates);
-                return multipleStates;
-            } else {
                 return `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`;
-            }
         })
     return queryItems.join('&');
 }
 
-function getParkInfo(query) {
+function getParkInfo(query, limit) {
     const params = {
         stateCode: query,
-        api_key: apiKey
+        api_key: apiKey,
+        limit
     }; 
     
     const queryString = formatQueryParams(params)
